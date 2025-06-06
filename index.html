@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DiPX2025 </title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+  background: url('BANNER KARNIVAL (1).png') no-repeat center center fixed;
+  background-size: cover;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  padding: 20px;
+}
+
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo-row {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .logo-row img {
+      height: 50px;
+      max-width: 80px;
+      object-fit: contain;
+    }
+
+    h1 {
+      color: #020f1c;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    input[type="text"] {
+      padding: 12px 15px;
+      font-size: 16px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      transition: border-color 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      border-color: #0073e6;
+      outline: none;
+    }
+
+    button {
+      background: #f52f81;
+      color: white;
+      border: none;
+      padding: 14px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background: #a30346;
+    }
+
+    .message {
+      margin-top: 20px;
+      font-size: 14px;
+      color: #d8000c;
+      font-weight: 600;
+      min-height: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Logos row -->
+    <div class="logo-row">
+      <img src="jtm.png" alt="Logo 1" />
+      <img src="dipx.png" alt="Logo 2" />
+    </div>
+
+    <h1>Jabatan Teknologi Maklumat</h1>
+
+    <form id="idForm" autocomplete="off">
+      <input type="text" id="userId" placeholder="Enter Your STAFF ID (e.g. 02723)" required maxlength="10" />
+      <button type="submit">Access Evaluation File</button>
+    </form>
+    <div class="message" id="message"></div>
+  </div>
+
+  <script>
+    const links = {
+      "02710": "https://docs.google.com/spreadsheets/d/15ENa7Ry4cNzhqHaNpVgdUMfQptNrw3qCATDQ4-rcqEI/edit?usp=sharing",
+      "03739": "https://docs.google.com/spreadsheets/d/1j47CETuIRRwGD2vC9daP985B6Y10H-1bzFmUoRAD8FY/edit?usp=sharing",
+      "02451": "https://docs.google.com/spreadsheets/d/1-NYtGEc1BHr9HmUfr1ksv-e2ceuyru5PMEjCI00HF0c/edit?gid=194851924#gid=194851924",
+      "03674": "https://docs.google.com/spreadsheets/d/1a2tBxhzgAXa5fmiaR-Xowqd5s--8HEOr-ULE9NzVZLo/edit?gid=194851924#gid=194851924",
+      "03418": "https://docs.google.com/spreadsheets/d/10HDmIkWBaE3m5VLhEjOpn2Jfd6_Unqkr3cR1BsOHUmY/edit?gid=194851924#gid=194851924",
+      "02684": "https://docs.google.com/spreadsheets/d/1QJbdiUkSlvLJ0d-Fha29WPXjp9rYuJXROQ-sOEvWhqc/edit?gid=194851924#gid=194851924",
+      "03078": "https://docs.google.com/spreadsheets/d/1siVSUwhCbbd06I-obqGcFRdI8OOYenxn0uPDFGcKKxA/edit?gid=194851924#gid=194851924",
+      "02753": "https://docs.google.com/spreadsheets/d/1aclN6-PcCZ2Hra0hvJq0EsPTf3WM5otV3N7EqaNjjHk/edit?gid=194851924#gid=194851924",
+      "03425": "https://docs.google.com/spreadsheets/d/1qbJApo9TBrc_jfIXKyhNW3WkKOfWc5siGFt3hgQq2-0/edit?gid=194851924#gid=194851924",
+      "03624": "https://docs.google.com/spreadsheets/d/1v6hwB70rcFaVBqcZOhiY84KhXRGGr6lNI1oBiDX6tVQ/edit?gid=194851924#gid=194851924",
+      "03734": "https://docs.google.com/spreadsheets/d/11ADpApzOFIjhz-nLc29KTr0n2K3b4IZ16u0DNthHaeQ/edit?gid=194851924#gid=194851924",
+      "02416": "https://docs.google.com/spreadsheets/d/1oHdJdCAefbQm3UMvgaV3zdEECMOeGdDmZn-yqTTDhT0/edit?gid=194851924#gid=194851924",
+      "02343": "https://docs.google.com/spreadsheets/d/16F7ktGCzWfXmAnv05-_EKpmXB0Bclejm4BOcyquxeDA/edit?gid=194851924#gid=194851924",
+      "02705": "https://docs.google.com/spreadsheets/d/17NOK3EtIRruLFY9nY69ChaahigFEqWHOfBaOcYirz7s/edit?gid=194851924#gid=194851924",
+      "03082": "https://docs.google.com/spreadsheets/d/199QdDKO_goGn_9Z4fiRk1TCDcmMrlEilGo-y05Md2C4/edit?gid=194851924#gid=194851924",
+      "02385": "https://docs.google.com/spreadsheets/d/1GxLLQX_eU774F3yBPDjGKI8V_wX_VcX9RflXhxBXAHs/edit?gid=194851924#gid=194851924",
+      "02532": "https://docs.google.com/spreadsheets/d/1PFGekBrGDVX25jbEAtwnOI0kXECQOVN7bG_8WgUpxKU/edit?gid=194851924#gid=194851924",
+      "02108": "https://docs.google.com/spreadsheets/d/1WK-SuWZCKBZhOXwWsIKLryKPyXv07T4jICbNc0MX5Yg/edit?gid=194851924#gid=194851924",
+      "02746": "https://docs.google.com/spreadsheets/d/1KT5j_ne5V3Xy3IAli0PXgheaCvBtDCndqLL0vAner6s/edit?gid=194851924#gid=194851924",
+      "02295": "https://docs.google.com/spreadsheets/d/1HAOcHmvphWP0tgxDsL9Z_lwtfypsznHjZyRyf8219xA/edit?gid=194851924#gid=194851924",
+      "00439": "https://docs.google.com/spreadsheets/d/1XXVPBgjDef0bUCGlOnZgpl20sfGKAZIOn8R97rdThEg/edit?gid=194851924#gid=194851924",
+      
+    };
+
+    const form = document.getElementById('idForm');
+    const userIdInput = document.getElementById('userId');
+    const messageDiv = document.getElementById('message');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      let id = userIdInput.value.trim();
+      id = id.padStart(5, '0');
+
+      if (links[id]) {
+        messageDiv.style.color = '#007a00';
+        messageDiv.textContent = 'ID found! Opening your file...';
+        window.open(links[id], '_blank');
+        userIdInput.value = '';
+        messageDiv.textContent = '';
+      } else {
+        messageDiv.style.color = '#d8000c';
+        messageDiv.textContent = 'ID not found. Please try again.';
+      }
+    });
+  </script>
+</body>
+</html>
